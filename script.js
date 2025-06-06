@@ -1,26 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
-            const gridContainer = document.getElementById('gridContainer');
-            
-            // Создаем 25 ячеек
-            for (let i = 0; i < 25; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'cel';
-                gridContainer.appendChild(cell);
-            }
-            
-            // Функция для обновления ячеек
-            function updateCells() {
-                const cells = document.querySelectorAll('.cel');
-                
-                // 1. Анимация исчезновения текущих элементов
-                cells.forEach(cell => {
-                    if (cell.firstChild) {
-                        cell.firstChild.classList.add('fade-out');
-                    }
-                });
-                
-                // 2. После завершения анимации исчезновения
-                setTimeout(() => {
+    const gridContainer = document.getElementById('gridContainer');
+    
+    // Создаем 25 ячеек
+    for (let i = 0; i < 25; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cel';
+        gridContainer.appendChild(cell);
+    }
+    
+    
+    // Обработчик клика
+    document.addEventListener('click', function() {
+        const cells = document.querySelectorAll('.cel');
+
+        setTimeout(() => {
                     cells.forEach(cell => {
                         cell.innerHTML = '';
                         
@@ -42,11 +35,5 @@ document.addEventListener('DOMContentLoaded', function() {
                         }, 10);
                     });
                 }, 500);
-            }
-            
-            // Обработчик клика
-            document.addEventListener('click', updateCells);
-            
-            // Инициализация первых элементов
-            updateCells();
+            });
         });
