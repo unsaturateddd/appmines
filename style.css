@@ -204,8 +204,8 @@ body {
     pointer-events: none;
   }
 .container-grid{
-    width: min(500px, 90vw);
-    height: min(500px, 90vw);
+    width: min(400px, 90vw);
+    height: min(400px, 90vw);
     padding: 20px;
     gap: 8px;
     background-color: #040917;
