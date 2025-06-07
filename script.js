@@ -8,32 +8,40 @@ document.addEventListener('DOMContentLoaded', function() {
         gridContainer.appendChild(cell);
     }
     
-    
     // Обработчик клика
     document.addEventListener('click', function() {
         const cells = document.querySelectorAll('.cel');
+        
+        // Создаем массив с 3 минами и 22 звездами
+        const cellTypes = Array(3).fill('mine').concat(Array(22).fill('star'));
+        
+        // Перемешиваем массив (алгоритм Фишера-Йейтса)
+        for (let i = cellTypes.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [cellTypes[i], cellTypes[j]] = [cellTypes[j], cellTypes[i]];
+        }
 
         setTimeout(() => {
-                    cells.forEach(cell => {
-                        cell.innerHTML = '';
-                        
-                        // Создаем новое изображение
-                        const img = document.createElement('img');
-                        const isMine = Math.random() > 0.3;
-                        img.src = isMine ? 'svgs/stars.svg' : 'svgs/cross.png';
-                        img.className = 'cell-image';
-                        img.style.opacity = '0';
-                        img.style.transform = 'scale(0.5)';
-                        
-                        // Добавляем изображение в ячейку
-                        cell.appendChild(img);
-                        
-                        // Запускаем анимацию появления
-                        setTimeout(() => {
-                            img.style.opacity = '1';
-                            img.style.transform = 'scale(1)';
-                        }, 10);
-                    });
-                }, 500);
+            cells.forEach((cell, index) => {
+                cell.innerHTML = '';
+                
+                const img = document.createElement('img');
+                // Определяем тип изображения на основе перемешанного массива
+                img.src = cellTypes[index] === 'mine' 
+                    ? 'svgs/cross.png' 
+                    : 'svgs/stars.svg';
+                    
+                img.className = 'cell-image';
+                img.style.opacity = '0';
+                img.style.transform = 'scale(0.5)';
+                
+                cell.appendChild(img);
+                
+                setTimeout(() => {
+                    img.style.opacity = '1';
+                    img.style.transform = 'scale(1)';
+                }, 10);
             });
-        });
+        }, 500);
+    });
+});
